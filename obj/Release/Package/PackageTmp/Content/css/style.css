@@ -1,0 +1,102 @@
+﻿span.alert {
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+.modal-header {
+    display: block;
+}
+
+#subtable1 th, #subtable1 td, #subtable2 th, #subtable2 td, #subtable3 th, #subtable3 td {
+    line-height: 1;
+    padding: 5px 5px;
+}
+
+.wizard > .content > .body label {
+    width: 100%;
+    text-align: center;
+}
+
+#subtable1 tfoot th label, #subtable2 tfoot th label, #subtable3 tfoot th label {
+    width: 100%;
+    text-align: center;
+    background: rgba(0,140,186,1);
+    text-align: center;
+    padding: 3px;
+    /*border-radius: 5px;*/
+}
+.modal-dialog{
+    margin:0px auto;
+}
+.pill-nav a {
+    display: block;
+    color: #5c5b5b;
+    background: #cdcdcd;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    margin: 5px;
+    text-decoration: none;
+    font-size: 11px;
+   /* border-radius: 5px;*/
+}
+.text-nicelabel + label {
+    border-radius: 0;
+}
+.wizard > .actions a, .wizard > .actions a:hover, .wizard > .actions a:active {
+    border-radius: 0;
+    padding: 5px 10px;
+}
+.pill-nav a.active {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.wizard > .content > .body {
+    padding: 10px;
+}
+#subtable1 th, #subtable1 td, #subtable2 th, #subtable2 td, #subtable3 th, #subtable3 td{
+    font-size:11px;
+    text-align:center;
+}
+.wizard > .content > .body {
+    font-size: 11px;
+}
+h2 {
+    font-size: 26px;
+    font-weight: normal;
+    font-family: 'Roboto';
+}
+.text-nicelabel + label{
+    padding : 3px 3px;
+}
+
+.modal-backdrop {
+    background: transparent;
+}
+@media only screen and (max-width: 600px) {
+    /*#subtable1 tfoot th label, #subtable2 tfoot th label, #subtable3 tfoot th label {
+        font-size: 80%;
+    }
+
+
+    .wizard > .content > .body{
+        font-size:1.2rem;
+    }*/
+    h2 {
+        font-size: 18px;
+        font-weight: normal;
+        font-family: 'Roboto';
+        margin-left:0;
+    }
+
+    .pill-nav a {
+        font-size: 80%;
+    }
+    .modal-body {
+        position: relative;
+        flex: inherit;
+        padding: 0;
+    }
+}

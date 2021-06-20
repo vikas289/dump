@@ -1,0 +1,46 @@
+﻿#header {
+    background: aliceblue;
+}
+#header-nav-wrap .header-main-nav li.current a, #header-nav-wrap .header-main-nav li a, #header-nav-wrap .header-main-nav li a:hover {
+    color: #003060 !important;
+}
+.header-logo a {
+    color:darkblue;
+    background: url(images/Ipca-Logo.png) no-repeat center;
+    background-size: 97px 22px;
+}
+.home-scrolldown a:hover, .home-scrolldown a:focus{
+    color:#003060!important;
+}
+
+#quiz {
+    min-height: 786px;
+    background: #ffffff;
+    padding-top: 10rem;
+    overflow: hidden;
+}
+
+.row1 {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* margin-right: -15px; */
+    /* margin-left: -15px; */
+}
+
+.row1 {
+    width: 100%;
+    /* max-width: 1170px; */
+    margin: 0 auto;
+}
+.wizard > .content > .body {
+    position: relative !important;
+    font-size: 1.5rem;
+}
+.wizard > .actions a, .wizard > .actions a:hover, .wizard > .actions a:active {
+    font-size: 1.5rem;
+}
+.wizard ul, .tabcontrol ul{
+    display:none;
+}

@@ -1,0 +1,236 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<link href="~/Content/css/style.css" rel="stylesheet" />
+
+<!-- home
+================================================== -->
+<section id="home" data-parallax="scroll" data-image-src="/Content/images/hero-bg.jpg" data-natural-width=3000 data-natural-height=2000>
+    <div class="overlay"></div>
+</section> <!-- end home -->
+
+<section id="quiz">
+    <!-- Trigger the modal with a button -->
+    <!-- Modal -->
+
+    <div class="row1">
+        <div class="col-lg-8 col-md-12 col-sm-12 offset-lg-2">
+            <div class="card">
+                <div class="card-header  text-center">
+                    <h1 class="card-title">Take the Quiz!</h1>
+                </div>
+                <div class="card-body  text-center">
+                    <button type="button" class="btn btn-info btn-lg" onclick="openEyeModal();">Start Quiz</button>
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div id="myModal" class="modal" role="dialog">
+        <div class="modal-dialog modal-lg ">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="modalTitle"></h4>
+                </div>
+                <div class="modal-body" id="modalBody">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section> <!-- end quiz -->
+@section scripts{
+    <script>
+
+        function openEyeModal() {
+            $('#myModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
+
+            //$("#myModal").modal('show');
+            $('#modalTitle').html('Eye Dryness Quiz');
+            $('#modalBody').load('/Home/EyeModal', function () {
+                $('span.alert').hide();
+                $("#example-basic").steps({
+                    headerTag: "h3",
+                    bodyTag: "section",
+                    transitionEffect: "slideLeft",
+                    autoFocus: true,
+                    onInit: function (event, current) {
+                        $('.actions > ul > li:first-child').attr('style', 'display:none');
+                    },
+                    onStepChanged: function (event, current, next) {
+                        if (current > 0) {
+                            $('.actions > ul > li:first-child').attr('style', '');
+                        } else {
+                            $('.actions > ul > li:first-child').attr('style', 'display:none');
+                        }
+                    },
+                    onFinished: function (event, currentIndex) {
+                        DownloadImage();
+                    },
+                    onStepChanging: function (event, currentIndex, newIndex) {
+                        if (currentIndex > newIndex) {
+                            return true;
+                        }
+                        else {
+                            return validateForm(currentIndex);
+                        }
+
+
+
+                    },
+
+                });
+                $('input.text-nicelabel').nicelabel();
+            });
+        }
+
+        //  $('#text-radio2 > input').nicelabel();
+
+        function CalculateScore1() {
+            var cnt = 0;
+
+            $('#subtable1 input.text-nicelabel').each(function (index, value) {
+                if ($(this).is(":checked")) {
+                    if ($(this).val() != undefined)
+                        cnt = cnt + parseInt($(this).val());
+                }
+
+
+            });
+            $('#totalScore1').html(cnt);
+            CalculateFinal();
+        }
+        function CalculateScore2() {
+            var cnt = 0;
+            $('#subtable2 input.text-nicelabel').each(function (index, value) {
+                if ($(this).is(":checked")) {
+                    if ($(this).val() != undefined)
+                        cnt = cnt + parseInt($(this).val());
+                }
+
+
+            });
+            $('#totalScore2').html(cnt);
+            CalculateFinal();
+        }
+        function CalculateScore3() {
+            var cnt = 0;
+            $('#subtable3 input.text-nicelabel').each(function (index, value) {
+                if ($(this).is(":checked")) {
+                    if ($(this).val() != undefined)
+                        cnt = cnt + parseInt($(this).val());
+                }
+
+
+            });
+            $('#totalScore3').html(cnt);
+            CalculateFinal();
+        }
+        function CalculateFinal() {
+            var cnt = parseInt($('#totalScore1').html()) + parseInt($('#totalScore2').html()) + parseInt($('#totalScore3').html());
+            var qcnt = 0;
+            $('#totalScore4').html(cnt);
+            $('input.text-nicelabel').each(function (index, value) {
+                if ($(this).is(":checked")) {
+                    if ($(this).attr("data-nicelabel").indexOf('N/A') == -1)
+                        qcnt = qcnt + 1;
+                }
+
+
+            });
+            $('#totalQScore').html(qcnt);
+            var osdi = (cnt * 100) / (qcnt * 4);
+            //$('#spntotal').html(cnt);
+            $('#spntotalQ').html(qcnt);
+            //$('#totalOSDIScore').html(osdi);
+            var rosdi = Math.round(osdi);
+            if (rosdi >= 0 && rosdi <= 12) {
+                $('#FinalOSDIRange').html('(0-12)');
+                $('#FinalOSDIType').html('<strong>Normal</strong>');
+                $('.pill-nav a').removeClass('active');
+                $('.pill-nav a#normal').addClass('active');
+            }
+            else if (rosdi >= 13 && rosdi <= 22) {
+                $('#FinalOSDIRange').html('(13-22)');
+                $('#FinalOSDIType').html('<strong>Mild</strong>');
+                $('.pill-nav a').removeClass('active');
+                $('.pill-nav a#mild').addClass('active');
+            }
+            else if (rosdi >= 23 && rosdi <= 32) {
+                $('#FinalOSDIRange').html('(23-32)');
+                $('#FinalOSDIType').html('<strong>Moderate</strong>');
+                $('.pill-nav a').removeClass('active');
+                $('.pill-nav a#moderate').addClass('active');
+            }
+            else if (rosdi >= 33) {
+                $('#FinalOSDIRange').html('(33-100)');
+                $('#FinalOSDIType').html('<strong>Severe</strong>');
+                $('.pill-nav a').removeClass('active');
+                $('.pill-nav a#severe').addClass('active');
+            }
+            $('#FinalOSDI').html(Math.round(osdi));
+        }
+        function downloadURI(uri, name) {
+            var link = document.createElement("a");
+
+            link.download = name;
+            link.href = uri;
+            document.body.appendChild(link);
+            link.click();
+            clearDynamicLink(link);
+        }
+
+
+        function DownloadImage() {
+            var domElement = document.getElementById('divOSDI');
+            html2canvas(domElement, {
+                onrendered: function (domElementCanvas) {
+                    //var canvas = document.createElement('canvas');
+                    //canvas.width = domElementCanvas.width;
+                    //canvas.height = domElementCanvas.height;
+                    //canvas.getContext('2d').drawImage(domElementCanvas, 0, 0);
+                    //var base64 = canvas.toDataURL("image/png");
+                    //$('#printdiv').css('display', 'none');
+                    //$("[id*=hfImageData]").val(base64);
+                    //__doPostBack(btnExport.name, "");
+                    var myImage = domElementCanvas.toDataURL();
+                    downloadURI(myImage, "OSDI.png");
+                }
+            });
+            location.reload();
+        }
+        function validateForm(index) {
+            var index = index + 1;
+            var flag = true;
+            $('#subtable' + index + ' tbody tr.trqns').each(function (index, value) {
+
+                var qid = $(value).data("question");
+                if (!$('input[name=' + qid + ']').is(':checked')) {
+                    flag = false;
+                    //break;
+                }
+            });
+            if (flag) {
+                $('#spnError' + index).html('');
+                $('#spnError' + index).hide();
+            }
+            else {
+                $('#spnError' + index).html('In order to obtain your score, please answer all questions.');
+                $('#spnError' + index).show();
+            }
+
+            return flag;
+        }
+    </script>
+
+}
